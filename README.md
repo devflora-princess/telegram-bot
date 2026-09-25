@@ -115,10 +115,15 @@ npm run scan                     # both contracts, from the RPC's retained floor
 npm run scan -- --pages 40       # walk further
 npm run scan -- --show 20        # print 20 decoded events per contract
 npm run scan -- --from 4226500   # explicit start ledger
+npm run scan -- --json           # one mimir-scan-v1 JSON document on stdout
+npm run scan -- --json --show 20 # JSON including 20 decoded events per contract
 ```
 
-It prints the ledger window, an event-name histogram, and the decoded payloads.
-This is how the decoder was verified against the live deployment.
+Human mode prints the ledger window, an event-name histogram, and the decoded
+payloads. With `--json`, stdout is a single `mimir-scan-v1` document (bigints as
+decimal strings) and progress goes to stderr, so `npm run scan -- --json | jq`
+stays valid. Neither mode prints bot tokens or signing keys — the scanner never
+holds them. This is how the decoder was verified against the live deployment.
 
 ## Local mock profile
 
